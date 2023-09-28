@@ -299,7 +299,7 @@ uint64_t nrsa::RSA::_ext_gcd(uint64_t u, uint64_t v)
 {
 	// https://stackoverflow.com/a/27736785
 
-	uint64_t inv, u1, u3, v1, v3, t1, t3, q;
+	uint64_t u1, u3, v1, v3, t1, t3, q;
 	int64_t iter;
 	u1 = 1;
 	u3 = u;
@@ -319,11 +319,7 @@ uint64_t nrsa::RSA::_ext_gcd(uint64_t u, uint64_t v)
 	}
 	if (u3 != 1)
 		return  0;
-	if (iter < 0)
-		inv = v - u1;
-	else
-		inv = u1;
-	return inv;
+	return (iter < 0) ? v - u1 : u1;
 }
 
 bool nrsa::RSA::_save_key(std::string filename, bool is_private)

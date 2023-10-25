@@ -395,7 +395,7 @@ bool nrsa::RSA::_encode_data(const std::string& source_data)
 	std::vector<uint64_t> encoded_data(source_data.size());
 
 	for (size_t i = 0; i < source_data.size(); ++i)
-		encoded_data[i] = _pow_mod(source_data[i], _secret_exp, _modulus);
+		encoded_data[i] = _pow_mod(source_data[i], _open_exp, _modulus);
 
 	std::ofstream fout;
 	
@@ -426,7 +426,7 @@ bool nrsa::RSA::_decode_data(const std::string& encoded_data)
 
 	decoded_data.reserve(_encoded_data.size());
 	for (auto& encoded_symbol : _encoded_data)
-		decoded_data += static_cast<char>(_pow_mod(std::stoull(encoded_symbol), _open_exp, _modulus));
+		decoded_data += static_cast<char>(_pow_mod(std::stoull(encoded_symbol), _secret_exp, _modulus));
 
 	std::ofstream fout;
 
